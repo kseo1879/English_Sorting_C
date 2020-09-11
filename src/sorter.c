@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "helper/alpha.h"
 
 int main(int argc, char **argv) {
 
@@ -33,7 +34,9 @@ int main(int argc, char **argv) {
         }
     }
     
-       
+    //Now we know that there is no error with the command line input, we need to check if the option is 
+    //alphabetical representation. 
+    
 
     return 0;
 }
