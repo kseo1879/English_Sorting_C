@@ -4,6 +4,9 @@ TARGET=sorter
 
 .PHONY: clean
 .PHONY: test1
+.PHONY: test2
+.PHONY: test3
+.PHONY: test4
 
 all: $(TARGET)
 
@@ -15,7 +18,17 @@ clean:
 	rm -f ./test/*.o
 
 test1:
-	./sorter ./test/ex.txt -a -alph
+	./sorter ./test/alph-ascending.txt -a -alph
+
+test2:
+	./sorter ./test/alph-descending.txt -d -alph
+
+test3:
+	./sorter ./test/num-ascending.txt -a -num
+
+test4:
+	./sorter ./test/num-descending.txt -d -num
+
 
 # object/executed file : dependcy
 # ingredient

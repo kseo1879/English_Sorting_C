@@ -23,7 +23,7 @@ void ascending(char *file_name) {
     char buf[2] = {0, }; 
 
     //Current lowest starting location
-    int lowest_byte = 0;
+    int lowest_byte = -1;
 
     //The latest lowest byte
     int last_lowest_byte = -1;
@@ -48,17 +48,31 @@ void ascending(char *file_name) {
             }
             //File will read throught the whole file from the start of the word,
             //and it will record the lowest value
-            r_val = my_strcmp(file_name, cursur_byte, lowest_byte);
+            
             
             //We need to see if there is any previous record of the last lowest byte
             if(-1 != last_lowest_byte) { //This means it has read the whole file
-                if(0 > r_val && 0 < my_strcmp(file_name, cursur_byte, last_lowest_byte)) {
-                    lowest_byte = cursur_byte;
+                if(0 < my_strcmp(file_name, cursur_byte, last_lowest_byte)) {
+                    if(-1 == lowest_byte) {
+                        lowest_byte = cursur_byte;
+                    } else {
+                        r_val = my_strcmp(file_name, cursur_byte, lowest_byte);
+                        if(0 > r_val) {
+                            lowest_byte = cursur_byte;
+                        }
+                    }   
                 }
             } else { //This means that it hasn't read the whole file. 
-                if(0 > r_val) {
-                    lowest_byte = cursur_byte;
+                if(0 == cursur_byte) {
+                    lowest_byte = 0;
+                } else {
+                    r_val = my_strcmp(file_name, cursur_byte, lowest_byte);
+                    if(0 > r_val) {
+                        lowest_byte = cursur_byte;
+                    }
                 }
+
+    
             }
         }
         //Reading the file and save it to the limited bufer. 
@@ -66,58 +80,15 @@ void ascending(char *file_name) {
 
 
         if(0 != feof(fp)) { //It means that it is the end of the file. 
-            printf("%d\n", lowest_byte);
-            if(last_lowest_byte == lowest_byte) {
+            if(-1 == lowest_byte) {
                 break;
             } else {
+                print_word(file_name, lowest_byte);
                 last_lowest_byte = lowest_byte;
-                lowest_byte = 0;
+                lowest_byte = -1;
                 rewind(fp);
             }
         }
-
-        
-        // fread(buf, sizeof(char), 1, fp);
-
-        // if(0 == strcmp(buf, "\n")){
-            
-        //     // if(cursur_byte == lowest_byte) { //IF it's the lowest byte it should just continue;
-        //     //     continue;
-        //     // } 
-        //     cursur_byte = ftell(fp);
-        //     //my_strcmp will return 1 if cursur_byte is bigger than the lowest
-        //     //It will return -1 if its lower than the lowest byte
-        //     //0 if it's the same
-        //     r_val = my_strcmp(file_name, cursur_byte, lowest_byte);
-            
-        //     if(-1 != last_lowest_byte) {
-        //         tmp_val = my_strcmp(file_name, lowest_byte, last_lowest_byte);
-        //         if(0 < tmp_val && 0 > r_val) {
-        //             lowest_byte = cursur_byte; 
-        //         }
-        //     } else {//First time updating the last_lowest byte
-        //         if(0 > r_val) {//This means that the lowest byte should be updated. 
-        //             lowest_byte = cursur_byte;      
-        //         }
-        //     }
-        // }
-
-        // memset(buf, 0, 2);                       // Resetting buffer to null characters
-        //  //This means its the end of the file. 
-        
-
-        // if(0 != feof(fp)) {
-        //     printf("%d\n", lowest_byte);
-        //     //Need to check if it has to finish executing or not. 
-        //     if(0 < my_strcmp(file_name, lowest_byte, last_lowest_byte)) {
-        //         break;
-        //     } else {
-        //         tmp_val = -1;
-        //         last_lowest_byte = lowest_byte;
-        //         lowest_byte = 0;
-        //         rewind(fp);
-        //     }
-        // }
     }
 
 
@@ -126,7 +97,87 @@ void ascending(char *file_name) {
 }
 
 void descending(char *file_name) {
+    //First we define a file pointer fp. 
+    FILE *fp = fopen(file_name, "r");
+
+    //This is the limited buffer to store the character and it's null turminator.  
+    char buf[2] = {0, }; 
+
+    //Current lowest starting location
+    int biggest_byte = -1;
+
+    //The latest lowest byte
+    int last_biggest_byte = -1;
+
+    //The location of the file cursur. 
+    int cursur_byte = 0;
+
+    //Retrun value of strcmp
+    int r_val = 0;
+
+    // int tmp_val = -1;
+
+    //This loop will continue untill the lowest is is the same as the cursur's value. 
+    while(1) {
+
+        cursur_byte = ftell(fp);
+        if(0 == strcmp(buf, "\n") || 0 == ftell(fp)) {
+            if(biggest_byte == cursur_byte) {
+                //This means that cursur and lowest are at the same location so we should just skip it. 
+                fread(buf, sizeof(char), 1, fp);
+                continue;
+            }
+            //File will read throught the whole file from the start of the word,
+            //and it will record the lowest value
+            
+            
+            //We need to see if there is any previous record of the last lowest byte
+            if(-1 != last_biggest_byte) { //This means it has read the whole file
+                if(0 > my_strcmp(file_name, cursur_byte, last_biggest_byte)) {
+                    // printf("1st%d\n", biggest_byte);
+                    if(-1 == biggest_byte) {
+                        // printf("2nd%d\n", biggest_byte);
+                        biggest_byte = cursur_byte;
+                    } else {
+                        // printf("3rd%d\n", biggest_byte);
+                        r_val = my_strcmp(file_name, cursur_byte, biggest_byte);
+                        if(0 < r_val && last_biggest_byte != cursur_byte) {
+                            biggest_byte = cursur_byte;
+                        }
+                    }   
+                }
+            } else { //This means that it hasn't read the whole file. 
+                if(0 == cursur_byte) {
+                    biggest_byte = 0;
+                } else {
+                    r_val = my_strcmp(file_name, cursur_byte, biggest_byte);
+                    if(0 < r_val) {
+                        biggest_byte = cursur_byte;
+                    }
+                }
+
     
+            }
+        }
+        //Reading the file and save it to the limited bufer. 
+        fread(buf, sizeof(char), 1, fp);
+
+
+        if(0 != feof(fp)) { //It means that it is the end of the file. 
+            // printf("4th%d\n", biggest_byte);
+            if(-1 == biggest_byte) {
+                break;
+            } else {
+                print_word(file_name, biggest_byte);
+                last_biggest_byte = biggest_byte;
+                biggest_byte = -1;
+                rewind(fp);
+            }
+        }
+    }
+
+
+    fclose(fp);
     return;
 }
 
@@ -210,6 +261,20 @@ int my_strcmp(char *file_name, int cursur_byte, int lowest_byte) {
 
 //This function will print the word from the starting byte. 
 void print_word(char *file_name, int starting_byte) {
+    FILE *fp = fopen(file_name, "r");
+    fseek(fp, starting_byte, SEEK_SET);
+
+    char buf[2] = {0, };
+
+    while(0 == feof(fp)) {
+        fread(buf, sizeof(char), 1, fp);  
+        if(0 == strcmp(buf, "\n")) {
+            break;
+        }
+        printf("%s", buf);             
+        memset(buf, 0, 2);               
+    }
+    printf("\n");
 
     return;
 }
