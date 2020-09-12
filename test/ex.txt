@@ -3,8 +3,3 @@ Crepe
 Cake
 Apple
 Banana
-10
-2
-3
-4
-appl1
