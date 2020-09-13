@@ -154,6 +154,7 @@ Orange
 This is simillar to sort with -n command on linux
 
 ```bash
+sort -n ./test/num-ascending.txt
 a
 Apple
 b
