@@ -1,6 +1,6 @@
 # Sorter
 
-kk
+This is a sotring algorithm which 
 
 ## Installation
 
