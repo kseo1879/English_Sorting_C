@@ -82,7 +82,7 @@ void ascending(char *file_name) {
 
 
         if(0 != feof(fp)) { //It means that it is the end of the file. 
-            if(-1 == lowest_byte) {
+            if(-1 == lowest_byte || lowest_byte == last_lowest_byte) {
                 break;
             } else {
                 print_word(file_name, lowest_byte);
@@ -116,8 +116,6 @@ void descending(char *file_name) {
 
     //Retrun value of strcmp
     int r_val = 0;
-
-    // int tmp_val = -1;
 
     //This loop will continue untill the lowest is is the same as the cursur's value. 
     while(1) {
@@ -167,7 +165,7 @@ void descending(char *file_name) {
 
         if(0 != feof(fp)) { //It means that it is the end of the file. 
             // printf("4th%d\n", biggest_byte);
-            if(-1 == biggest_byte) {
+            if(-1 == biggest_byte || biggest_byte == last_biggest_byte) {
                 break;
             } else {
                 print_word(file_name, biggest_byte);

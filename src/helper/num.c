@@ -82,7 +82,7 @@ void num_ascending(char *file_name) {
 
 
         if(0 != feof(fp)) { //It means that it is the end of the file. 
-            if(-1 == lowest_byte) {
+            if(-1 == lowest_byte || lowest_byte == last_lowest_byte) {
                 break;
             } else {
                 print_word(file_name, lowest_byte);
@@ -167,7 +167,7 @@ void num_descending(char *file_name) {
 
         if(0 != feof(fp)) { //It means that it is the end of the file. 
             // printf("4th%d\n", biggest_byte);
-            if(-1 == biggest_byte) {
+            if(-1 == biggest_byte || biggest_byte == last_biggest_byte) {
                 break;
             } else {
                 print_word(file_name, biggest_byte);
