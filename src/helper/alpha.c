@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 void alph_printer(char **argv) {
     //Here argv would be the same as the user commandline input. 
@@ -241,12 +242,60 @@ int my_strcmp(char *file_name, int cursur_byte, int lowest_byte) {
         //Now we need to campare character by character.
         if(0 < strcmp(cursur, lowest)) {
             //This means that the cursur is bigger than the lowest. 
-            fclose(fp);
-            return 1;
+            if(0 == is_alpha(cursur[0])) { //This means that the cursur is bigger and no matter what the value is it is lower
+                fclose(fp);
+                return 1;
+            } else if(1 == is_alpha(cursur[0]) && 1 == is_alpha(lowest[0])) {
+                //If they are both alphabet
+                if(0 == is_upper(cursur[0]) && 1 == is_upper(lowest[0])) { //if cursur was lower and lowest was upper
+                    cursur[0] = toupper(cursur[0]);
+                    if(0 < strcmp(cursur, lowest)) { //if whey are both alphabet and only cursur is upper
+                        fclose(fp);
+                        return 1;
+                    } else if(0 > strcmp(cursur, lowest)) {
+                        fclose(fp);
+                        return -1;
+                    } else {
+                        cursur_byte++;
+                        lowest_byte++;
+                    }
+                } else {
+                    fclose(fp);
+                    return 1;
+                }
+            } else {
+                fclose(fp);
+                return 1;
+            }
+            
         } else if(0 > strcmp(cursur, lowest)) {
             //This means that that the cursur is lower than the lowest
-            fclose(fp);
-            return -1;
+
+            if(0 == is_alpha(cursur[0])) { //This means that the cursur is bigger and no matter what the value is it is lower
+                fclose(fp);
+                return -1;
+            } else if(1 == is_alpha(cursur[0]) && 1 == is_alpha(lowest[0])) {
+                //If they are both alphabet
+                if(1 == is_upper(cursur[0]) && 0 == is_upper(lowest[0])) { //if cursur was lower and lowest was upper
+                    lowest[0] = toupper(lowest[0]);
+                    if(0 < strcmp(cursur, lowest)) { //if whey are both alphabet and only cursur is upper
+                        fclose(fp);
+                        return 1;
+                    } else if(0 > strcmp(cursur, lowest)) {
+                        fclose(fp);
+                        return -1;
+                    } else {
+                        cursur_byte++;
+                        lowest_byte++;
+                    }
+                } else {
+                    fclose(fp);
+                    return -1;
+                }
+            } else {
+                fclose(fp);
+                return -1;
+            }
         } else {
             //This means they have the same value
             cursur_byte++;
@@ -277,4 +326,21 @@ void print_word(char *file_name, int starting_byte) {
     printf("\n");
 
     return;
+}
+
+//my is alpha function. This function will return if the character is alphabet for not.
+int is_alpha(char ch) {
+    if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch < 'Z')) {
+        return 1;
+    }
+    return 0;
+}
+
+//This is a function that compares if it's both alpha.
+//Assuming that character is alpha it will compare if it's upper case or not.  
+int is_upper(char ch) {
+    if((ch >= 'A' && ch < 'Z')) {
+        return 1;
+    }
+    return 0;
 }
