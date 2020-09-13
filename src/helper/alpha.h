@@ -14,10 +14,4 @@ void descending(char *file_name);
 
 int my_strcmp(char *file_name, int cursur_byte, int lowest_byte);
 
-void print_word(char *file_name, int starting_byte);
-
-int is_alpha(char ch);
-
-int is_upper(char ch);
-
 #endif

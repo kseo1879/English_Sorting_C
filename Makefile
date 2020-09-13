@@ -37,11 +37,14 @@ test4:
 ./src/sorter.o: ./src/sorter.c
 	$(CC) -c $(CFLAGS) $^ -o $@
 
+./src/helper/helper.o: ./src/helper/helper.c
+	$(CC) -c $(CFLAGS) $^ -o $@
+
 ./src/helper/alpha.o: ./src/helper/alpha.c
 	$(CC) -c $(CFLAGS) $^ -o $@
 
 ./src/helper/num.o: ./src/helper/num.c
 	$(CC) -c $(CFLAGS) $^ -o $@
 
-sorter: ./src/sorter.o ./src/helper/alpha.o ./src/helper/num.o
+sorter: ./src/sorter.o ./src/helper/alpha.o ./src/helper/num.o ./src/helper/helper.o
 	$(CC) $(CFLAGS) $^ -o $@
