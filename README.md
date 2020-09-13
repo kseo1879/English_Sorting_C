@@ -105,6 +105,28 @@ eg
 f
 Orange
 ```
+This result if simillar to sort ./test/alph-ascending.txt
+
+Proof(Using parallels virtual machine ubuntu 18)
+```bash
+sort ./test/alph-ascending.txt
+101010
+1202
+13
+a
+Apple
+b
+Banana
+c
+Cake
+Crepe
+d
+e
+eg
+f
+Orange
+```
+
 
 - For the numeric sort I've tried to make it simillar to the sort with '-n' flag which puts non alphabetical words to it's least priority. However one thing that I did not implement was making 10 comes later than 3 in ascending order. This was due to the possible weakness of my code where I have made the funcstion to compare string character by character. 
 This is the actual result of the ascending numerical sort
@@ -128,6 +150,28 @@ Orange
 1202
 13
 ```
+
+This is simillar to sort with -n command on linux
+
+```bash
+a
+Apple
+b
+Banana
+c
+Cake
+Crepe
+d
+e
+eg
+f
+Orange
+13
+1202
+101010
+```
+
+The only difference it made was the last three sentense which is the function that compares the value of integer which I didn't implement. 
 
 4. How I tested
 I have tried to think about most of the edge test cases for each of the functionaliry. I have resolved every error that I had with the edge test case input that I have found. 
