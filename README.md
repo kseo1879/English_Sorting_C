@@ -86,7 +86,7 @@ Here are some keypoint.
 - First for alpha-numeric I've tried to make it simillar to the sort function in linux terminal. It will first print the numebers, then from the alphabetical order. When asending lower case will have the priority than the capital letters. 
 This is the actual result of the ascending alpha numerical sort. 
 
-'''bash
+```bash
 make test1
 ./sorter ./test/alph-ascending.txt -a -alph
 101010
@@ -104,11 +104,12 @@ e
 eg
 f
 Orange
-'''
+```
+
 - For the numeric sort I've tried to make it simillar to the sort with '-n' flag which puts non alphabetical words to it's least priority. However one thing that I did not implement was making 10 comes later than 3 in ascending order. This was due to the possible weakness of my code where I have made the funcstion to compare string character by character. 
 This is the actual result of the ascending numerical sort
 
-'''bath
+```bath
 a
 Apple
 b
@@ -124,4 +125,4 @@ Orange
 101010
 1202
 13
-'''
+```
