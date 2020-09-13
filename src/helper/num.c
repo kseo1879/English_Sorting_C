@@ -265,6 +265,10 @@ int my_numcmp(char *file_name, int cursur_byte, int lowest_byte) {
                     return 1;
                 }
             } else {
+                if(0 == is_alpha(lowest[0])) {
+                    fclose(fp);
+                    return -1;
+                }
                 fclose(fp);
                 return 1;
             }
@@ -273,22 +277,15 @@ int my_numcmp(char *file_name, int cursur_byte, int lowest_byte) {
             //This means that that the cursur is lower than the lowest
 
             if(0 == is_alpha(cursur[0])) { //This means that the cursur is bigger and no matter what the value is it is lower
-                // if(0 == isalpha(lowest[0])) {
-                //     fclose(fp);
-                //     return -1;
-                // } else {
-                //     fclose(fp);
-                //     return -1;
-                // }
-                fclose(fp);
-                return -1;
-                // if(0 != isalpha(lowest[0])) {
-                //     fclose(fp);
-                //     return 1;
-                // } else {
-                //     fclose(fp);
-                //     return -1;
-                // }
+                if(0 == is_alpha(lowest[0])) {
+                    fclose(fp);
+                    return -1;
+                } else {
+                    fclose(fp);
+                    return 1;
+                }
+                // fclose(fp);
+                // return -1;
                 
             } else if(1 == is_alpha(cursur[0]) && 1 == is_alpha(lowest[0])) {
                 //If they are both alphabet
