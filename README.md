@@ -109,7 +109,9 @@ Orange
 - For the numeric sort I've tried to make it simillar to the sort with '-n' flag which puts non alphabetical words to it's least priority. However one thing that I did not implement was making 10 comes later than 3 in ascending order. This was due to the possible weakness of my code where I have made the funcstion to compare string character by character. 
 This is the actual result of the ascending numerical sort
 
-```bath
+```bash
+make test3
+./sorter ./test/num-ascending.txt -a -num
 a
 Apple
 b
@@ -126,3 +128,17 @@ Orange
 1202
 13
 ```
+
+4. How I tested
+I have tried to think about most of the edge test cases for each of the functionaliry. I have resolved every error that I had with the edge test case input that I have found. 
+
+Here is the cases where I have tested
+- Alpahbet with upper case and lower case. 
+- Putting least prior letter to the front or back
+- Putting same letter with different character at the end (ex) apple, appla)
+- File with no contents
+- File with only new line
+
+## To conclude
+- I have basically followed the required field of the homeework. But to be honest I think I have a bit of repetition that I could get rid of. I tried hard to get rid of by making the helper.h under src folder to minimize as much as I can.  
+- I've heard that it is better to keep the readme simple but I have put in quite a lot of effort in this and there were a lot of things that I have done and wanted to write it down. Sorry about the long readme file. 
